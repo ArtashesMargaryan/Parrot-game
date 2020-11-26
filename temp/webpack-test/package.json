@@ -24,6 +24,6 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
-    "pixi.js": "^5.3.3"
+    "lodash.flattendeep": "^4.4.0"
   }
 }
