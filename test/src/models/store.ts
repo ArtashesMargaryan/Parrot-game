@@ -1,0 +1,50 @@
+import { getGameConfig } from '../constants/configs/game/game-config';
+import { AppModel } from './app/app-model';
+import { SuperAppModel } from './app/super-app-model';
+import { GameModel } from './game/game-model';
+import { ObservableModel } from './observable-model';
+
+class Store extends ObservableModel {
+    private _app: AppModel = null;
+    private _game: GameModel = null;
+    private _superApp: SuperAppModel = null;
+
+    public constructor() {
+        super('Store');
+        this.makeObservable();
+    }
+
+    public get superApp(): SuperAppModel {
+        return this._superApp;
+    }
+
+    public get app(): AppModel {
+        return this._app;
+    }
+
+    public get game(): GameModel {
+        return this._game;
+    }
+
+    public initializeSuperAppModel(): void {
+        this._superApp = new SuperAppModel();
+        this._superApp.initialize();
+    }
+
+    public initializeAppModel(): void {
+        this._app = new AppModel();
+        this._app.initialize();
+    }
+
+    public initializeGameModel(): void {
+        this._game = new GameModel(getGameConfig());
+        this._game.initialize();
+    }
+
+    public destroyGameModel(): void {
+        this._game.destroy();
+        this._game = null;
+    }
+}
+
+export const store = new Store();
